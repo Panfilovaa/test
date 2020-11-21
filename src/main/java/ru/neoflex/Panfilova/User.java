@@ -8,7 +8,7 @@ public class User {
     private String city;
     private Date date;
 
-    User(String username, String city, Date date){
+    public User(String username, String city, Date date){
         this.username = username;
         this.city = city;
         this.date = date;

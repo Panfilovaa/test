@@ -23,5 +23,19 @@
         </dependency>
     </dependencies>
 
-
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFiles>src/test/resources/testng.xml</suiteXmlFiles>
+                        </suiteXmlFiles>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
