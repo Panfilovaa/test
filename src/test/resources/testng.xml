@@ -4,7 +4,6 @@
     <test name="Вывод данных из xml">
         <parameter name="username" value="Anastasia"/>
         <parameter name="city" value="Saratov"/>
-        <parameter name="date" value="25-11-1999"/>
         <classes>
             <class name="ru.neoflex.panfilova.Main">
                 <methods>
