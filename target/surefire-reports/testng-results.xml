@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Parameter test Suite" duration-ms="40" started-at="2020-11-21T20:16:26Z" finished-at="2020-11-21T20:16:26Z">
+    <groups>
+    </groups>
+    <test name="Вывод данных из xml" duration-ms="40" started-at="2020-11-21T20:16:26Z" finished-at="2020-11-21T20:16:26Z">
+      <class name="ru.neoflex.panfilova.Main">
+        <test-method status="PASS" signature="test1(java.lang.String, java.lang.String)[pri:0, instance:ru.neoflex.panfilova.Main@482cd91f]" name="test1" duration-ms="10" started-at="2020-11-21T20:16:26Z" finished-at="2020-11-21T20:16:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Anastasia]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Saratov]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test1 -->
+      </class> <!-- ru.neoflex.panfilova.Main -->
+    </test> <!-- Вывод данных из xml -->
+  </suite> <!-- Parameter test Suite -->
+</testng-results>
