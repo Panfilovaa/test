@@ -4,6 +4,8 @@ import com.google.gson.*;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import io.restassured.response.Response;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.neoflex.Panfilova.GetPropertyValues;
@@ -16,6 +18,7 @@ import static io.restassured.RestAssured.given;
 
 public class Swapi {
 
+    private Logger logger = LogManager.getLogger(Swapi.class);
     private Properties values;
 
     @BeforeTest
@@ -26,23 +29,23 @@ public class Swapi {
 
     @Test //получить список сущностей
     public void test3() {
-        System.out.println("Список всех сущностей:\n");
-        System.out.println(get(""));
+        logger.info("Список всех сущностей:\n");
+        logger.info(get(""));
     }
 
     @Test //получить список фильмов. Получить информацию по одному из фильмов
     public void test4() {
         String jsonFile = get("films");
-        System.out.printf("Список всех фильмов: \n%s%n", jsonFile);
+        logger.info(String.format("Список всех фильмов: \n%s%n", jsonFile));
 
         Object film = path(jsonFile, "$..[?(@.title == 'A New Hope')]");
-        System.out.printf("Выбранный фильм: \n%s%n", film);
+        logger.info(String.format("Выбранный фильм: \n%s%n", film));
     }
 
     @Test //получить список планет. Получить информацию по выбранной планете из выбранного фильма
     public void test5() {
         String jsonFile = get("planets");
-        System.out.printf("Список всех планет: \n%s%n", jsonFile);
+        logger.info(String.format("Список всех планет: \n%s%n", jsonFile));
 
         jsonFile = get("films");
         String film = path(jsonFile, "$..[?(@.title == 'A New Hope')]");
@@ -53,7 +56,7 @@ public class Swapi {
         String replaceUrl = planetUrl.getAsString().replace(this.values.getProperty("url"), "");
         jsonFile = get(replaceUrl);
 
-        System.out.printf("Одна из планет из фильма A New Hope: \n%s%n", jsonFile);
+        logger.info(String.format("Одна из планет из фильма A New Hope: \n%s%n", jsonFile));
     }
 
     @Test //Получить список рас из выбранного фильма, с выбранной планеты
@@ -83,7 +86,7 @@ public class Swapi {
         if (allSpecies.isEmpty()) {
             allSpecies.add("На данной планете нет рас");
         }
-        System.out.printf("Все расы из фильма A New Hope, с планеты Tatooine: \n%s%n", String.join(", ", allSpecies));
+        logger.info(String.format("Все расы из фильма A New Hope, с планеты Tatooine: \n%s%n", String.join(", ", allSpecies)));
     }
 
     @Test //Получить список пилотов корабля из выбранного фильма
@@ -100,12 +103,14 @@ public class Swapi {
             String starshipsget = get(starshipsUrl);
             String pilots = path(starshipsget, "$.pilots");
             String starshipName = path(starshipsget, "$.name");
-            System.out.print(starshipName + " - ");
+
+            String toLog = starshipName + " - ";
             if (pilots.equals("[]")) {
-                System.out.print("На данном корабле нет пилотов\n");
+                toLog += "На данном корабле нет пилотов";
             } else {
-                System.out.printf("Cписок пилотов корабля: \n%s\n", pilots);
+                toLog += String.format("Cписок пилотов корабля: \n%s", pilots);
             }
+            logger.info(toLog);
         }
     }
 
