@@ -26,22 +26,23 @@ public class Swapi {
 
     @Test //получить список сущностей
     public void test3() {
+        System.out.println("Список всех сущностей:\n");
         System.out.println(get(""));
     }
 
     @Test //получить список фильмов. Получить информацию по одному из фильмов
     public void test4() {
         String jsonFile = get("films");
-        System.out.println(String.format("Список всех фильмов: \n%s", jsonFile));
+        System.out.printf("Список всех фильмов: \n%s%n", jsonFile);
 
         Object film = path(jsonFile, "$..[?(@.title == 'A New Hope')]");
-        System.out.println(String.format("Выбранный фильм: \n%s", film));
+        System.out.printf("Выбранный фильм: \n%s%n", film);
     }
 
     @Test //получить список планет. Получить информацию по выбранной планете из выбранного фильма
     public void test5() {
         String jsonFile = get("planets");
-        System.out.println(String.format("Список всех планет: \n%s", jsonFile));
+        System.out.printf("Список всех планет: \n%s%n", jsonFile);
 
         jsonFile = get("films");
         String film = path(jsonFile, "$..[?(@.title == 'A New Hope')]");
@@ -52,7 +53,7 @@ public class Swapi {
         String replaceUrl = planetUrl.getAsString().replace(this.values.getProperty("url"), "");
         jsonFile = get(replaceUrl);
 
-        System.out.println(String.format("Одна из планет из фильма A New Hope: \n%s", jsonFile));
+        System.out.printf("Одна из планет из фильма A New Hope: \n%s%n", jsonFile);
     }
 
     @Test //Получить список рас из выбранного фильма, с выбранной планеты
@@ -75,14 +76,14 @@ public class Swapi {
             jsonFile = get(replaceUrl);
 
             String homeworld = path(jsonFile, "$.homeworld");
-            if (homeworld == planetUrl) {
+            if (homeworld.equals(planetUrl)) {
                 allSpecies.add(jsonFile);
             }
         }
         if (allSpecies.isEmpty()) {
             allSpecies.add("На данной планете нет рас");
         }
-        System.out.println(String.format("Все расы из фильма A New Hope, с планеты Tatooine: \n%s", String.join(", ", allSpecies)));
+        System.out.printf("Все расы из фильма A New Hope, с планеты Tatooine: \n%s%n", String.join(", ", allSpecies));
     }
 
     @Test //Получить список пилотов корабля из выбранного фильма
@@ -103,7 +104,7 @@ public class Swapi {
             if (pilots.equals("[]")) {
                 System.out.print("На данном корабле нет пилотов\n");
             } else {
-                System.out.print(String.format("Cписок пилотов корабля: \n%s\n", pilots));
+                System.out.printf("Cписок пилотов корабля: \n%s\n", pilots);
             }
         }
     }
@@ -124,5 +125,4 @@ public class Swapi {
 
         return gson.toJson(jsonString);
     }
-
 }
